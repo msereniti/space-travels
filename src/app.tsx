@@ -18,6 +18,7 @@ const App: React.FC = () => {
       message: "That's not real",
       description:
         'You see just short study project, everything fake and nothing real',
+      placement: 'bottomRight',
     });
   }, []);
 
