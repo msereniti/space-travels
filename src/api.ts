@@ -4,7 +4,7 @@ import { KnownPlanet } from './definitions';
 
 const publicAccessToken =
   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWFhIiwicm9sZXMiOltdLCJpYXQiOjE2Mzc3NjU3MjUsImV4cCI6MjYzNzc2NjMyNX0.bYnZNH2ecWA7IEXPBo3XLA_GHnF9yFEsKLawURfXY-k';
-const baseUrl = 'https://34.125.220.41';
+const baseUrl = 'https://space-travel-app.ru';
 
 const apiCall = (method: 'post' | 'get', path: string, data?: object) =>
   fetch(`${baseUrl}${path}`, {
