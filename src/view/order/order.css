@@ -1,0 +1,34 @@
+.tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: center;
+}
+.ticket {
+  max-width: 800px;
+  padding: 50px;
+}
+.ticket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.ticket-header-main {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  font-size: 20px;
+}
+
+@media print {
+  .ticket * {
+    color: black !important;
+    border-color: black !important;
+    background-color: white !important;
+  }
+  .ticket .ticket-header-extra {
+    display: none;
+  }
+}

@@ -1,0 +1,22 @@
+.space-background {
+  background-color: black;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.space-background-canvas {
+  animation: background-canvas 1s ease-in-out forwards;
+}
+
+@keyframes background-canvas {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

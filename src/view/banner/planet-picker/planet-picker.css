@@ -1,0 +1,69 @@
+.planet-picker {
+  position: absolute;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+}
+.planet-picker-wheel {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-start;
+  position: relative;
+  transition: transform 2s ease-in-out;
+  transform-origin: bottom left;
+  box-sizing: border-box;
+}
+.planet-picker-planet {
+  position: absolute;
+  transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+  animation: planet 0.5s ease-in-out forwards;
+  cursor: pointer;
+}
+.planet-picker-planet:hover {
+  opacity: 1 !important;
+}
+@keyframes planet {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.planet-picker-planet-base {
+  position: absolute;
+  width: 100%;
+  top: -1.5em;
+  height: 1.5em;
+  animation: planet-base-name 1s ease-in-out forwards;
+}
+.planet-picker-planet-base:after {
+  content: '';
+  border-bottom: 1px solid;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  animation: planet-base-underline 1s ease-in-out forwards;
+}
+
+@keyframes planet-base-name {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes planet-base-underline {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}

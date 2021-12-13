@@ -1,0 +1,62 @@
+.short-form {
+  position: relative;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.short-form-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.short-form input,
+.short-form button,
+.short-form [role='tab'] {
+  font-size: 24px !important;
+}
+
+.short-form .ant-tabs [role='tablist']::before {
+  display: none;
+}
+
+.short-form-date-picker {
+  /* width: 420px; */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.short-form-date-picker .ant-picker-input {
+  width: 180px;
+}
+.short-form-date-picker .ant-picker-range-separator + .ant-picker-input {
+  width: 180px;
+}
+.short-form-date-picker:hover,
+.short-form-date-picker:focus-within {
+  z-index: 1;
+}
+
+.short-form-passenger-count-input {
+  width: 180px;
+  margin-left: -1px;
+  border-radius: 0;
+  height: 52px;
+}
+.short-form-passenger-count-input input {
+  height: 50px;
+}
+.short-form-passenger-count-input:hover,
+.short-form-passenger-count-input:focus-within {
+  z-index: 1;
+}
+
+.short-form-submit-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+  height: 52px;
+}
+.short-form-submit-button:hover,
+.short-form-submit-button:focus-within {
+  z-index: 1;
+}
