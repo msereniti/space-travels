@@ -37,9 +37,9 @@ export const FlightDatePicker: React.FC = observer(() => {
     });
     try {
       const { flightsTo } = await getFlights(
-        destination,
-        startOfMonth - 1000 * 60 * 60 * 24 * 10 * 10000,
-        startOfMonth + 1000 * 60 * 60 * 24 * (30 + 10) * 10000
+        destination!,
+        startOfMonth - 1000 * 60 * 60 * 24 * 10,
+        startOfMonth + 1000 * 60 * 60 * 24 * (30 + 10)
       );
 
       runInAction(() => {
