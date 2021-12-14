@@ -21,6 +21,14 @@ export type Flight = {
   price: number;
 };
 
+export type Shuttle = {
+  shuttleName: string;
+  shuttleCode: string;
+  shuttleModel: string;
+  shuttleRange: number;
+  seats: string[];
+};
+
 export const routes = {
   root: '/',
   purchase: '/purchase/:flightCode/:passengersCount/:action?',

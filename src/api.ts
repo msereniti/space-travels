@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { KnownPlanet } from './definitions';
+import { KnownPlanet, Shuttle } from './definitions';
 
 const publicAccessToken =
   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWFhIiwicm9sZXMiOltdLCJpYXQiOjE2Mzc3NjU3MjUsImV4cCI6MjYzNzc2NjMyNX0.bYnZNH2ecWA7IEXPBo3XLA_GHnF9yFEsKLawURfXY-k';
@@ -17,10 +17,14 @@ const apiCall = (method: 'post' | 'get', path: string, data?: object) =>
     body: data ? JSON.stringify(data) : undefined,
   }).then((response) => response.json());
 
-export const getSpacePort = async () => {
-  const response = await apiCall('get', '/space-port/mars');
+export const getSpacePort = async (spacePortCode: string) => {
+  const response = await apiCall('get', `/space-port/${spacePortCode}`);
 
-  console.log({ response });
+  return response as {
+    planetName: string;
+    spacePortCode: string;
+    spacePortName: string;
+  };
 };
 
 export const getFlights = async (
@@ -66,6 +70,7 @@ export const getFlight = async (flightCode: string) => {
     flightStatus: string;
     shuttleCode: string;
     price: number;
+    busySeats: string[];
   };
 };
 
@@ -75,13 +80,7 @@ export const getShuttle = async (shuttleCode: string) => {
     `/shuttle/${shuttleCode}?withSeats=true`
   );
 
-  return response as {
-    shuttleName: string;
-    shuttleCode: string;
-    shuttleModel: string;
-    shuttleRange: number;
-    seats: string[];
-  };
+  return response as Shuttle;
 };
 
 export const getBooking = async (bookingCode: string) => {
@@ -92,6 +91,7 @@ export const getBooking = async (bookingCode: string) => {
     paymentCode: string;
     bookingStatus: string;
     amountPassengers: number;
+    flightCodes: string[];
     passengers: [
       {
         firstName: string;
@@ -111,6 +111,7 @@ export const bookAFlight = async (params: {
     passportCode: string;
   }[];
   flights: [string];
+  seats: string[];
 }) => {
   const response = await apiCall('post', `/booking`, params);
 

@@ -74,11 +74,16 @@ export const SeatPicker: React.FC = observer(() => {
   const shuttle = shuttleReader();
 
   useEffect(() => {
+    if (!store.shuttle) {
+      store.shuttle = shuttle;
+    }
     if (!store.flight) {
       store.flight = flight;
     }
-    if (!store.shuttle) {
-      store.shuttle = shuttle;
+    if (store.shuttle && store.flight && store.occupied.length === 0) {
+      store.occupied = flight.busySeats.map((seatName) =>
+        store.shuttle!.seats.indexOf(seatName)
+      );
     }
   }, [flight, store.flight, shuttle, store.shuttle]);
 
@@ -87,7 +92,12 @@ export const SeatPicker: React.FC = observer(() => {
   return (
     <div className={`seat-picker seat-picker-${orientation}`}>
       <div className="seat-picker-shuttle">
-        <div className="seat-picker-shuttle-overlay">
+        <div
+          className="seat-picker-shuttle-overlay"
+          style={
+            orientation === 'vertical' ? { position: 'relative' } : undefined
+          }
+        >
           <h1 className="seat-picker-shuttle-name">
             Spaceship {store.shuttle?.shuttleName} to {planetTitle[destination]}
           </h1>
@@ -100,7 +110,7 @@ export const SeatPicker: React.FC = observer(() => {
           size={
             orientation === 'horizontal'
               ? Math.min(windowSize.height, windowSize.width * 0.6)
-              : windowSize.height * 0.8
+              : windowSize.width
           }
         />
       </div>

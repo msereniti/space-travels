@@ -16,6 +16,20 @@
   font-size: 24px !important;
 }
 
+@media (max-width: 700px) {
+  .short-form-inputs {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .short-form-inputs > div,
+  .short-form-inputs > button {
+    width: 100%;
+  }
+  .planet-picker {
+    transform: translateY(150px);
+  }
+}
+
 .short-form .ant-tabs [role='tablist']::before {
   display: none;
 }

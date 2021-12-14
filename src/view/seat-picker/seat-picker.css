@@ -30,12 +30,14 @@
   position: absolute;
   top: 30px;
   left: 30px;
+  max-width: calc(100% - 60px);
 }
 .seat-picker-shuttle-name {
   color: #1890ff;
 }
 .seat-picker-picking-form-scroll-wrapper {
   flex: 1;
+  min-height: 70vh;
   max-height: 100%;
   overflow: auto;
 }
@@ -43,8 +45,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 250px;
-  padding: 30px 0;
+  max-width: 350px;
+  padding: 30px 10px;
 }
 .seat-picker-seats-list {
   display: flex;

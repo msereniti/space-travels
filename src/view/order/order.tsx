@@ -9,9 +9,10 @@ import { useReactToPrint } from 'react-to-print';
 import { useAsyncResource } from 'use-async-resource';
 import { useRoute } from 'wouter';
 
-import { getBooking } from '../../api';
-import { Passenger, planetTitle, routes } from '../../definitions';
+import { getBooking, getFlight, getShuttle, getSpacePort } from '../../api';
+import { Passenger, planetTitle, routes, Shuttle } from '../../definitions';
 import { SeatName } from '../seat-picker/seat-name';
+import { capitalize } from '../utils';
 
 export const Ticket: React.FC<{
   passenger: Passenger;
@@ -20,10 +21,7 @@ export const Ticket: React.FC<{
   phoneNumber: string;
   departureDate: string;
   departurePort: string;
-  spaceship: {
-    code: string;
-    name: string;
-  };
+  spaceship: Shuttle;
   destination: string;
 }> = observer(
   ({
@@ -56,7 +54,7 @@ export const Ticket: React.FC<{
             {planetTitle[destination] || destination}
           </Descriptions.Item>
           <Descriptions.Item label="Spaceship">
-            {spaceship.name}
+            {spaceship.shuttleName}
           </Descriptions.Item>
           <Descriptions.Item label="Departure time">
             {dayjs(departureDate).format('YYYY-MM-DD HH:mm')}
@@ -99,6 +97,21 @@ const TicketsList: React.FC = observer(() => {
   const [bookingReader] = useAsyncResource(getBooking, routeParams.bookingCode);
   const booking = bookingReader();
 
+  const [flightReader] = useAsyncResource(getFlight, booking?.flightCodes[0]);
+  const flight = flightReader();
+  const [shuttleReader] = useAsyncResource(getShuttle, flight.shuttleCode);
+  const shuttle = shuttleReader();
+  const [destinationSpacePortReader] = useAsyncResource(
+    getSpacePort,
+    flight.spacePortCodeTo
+  );
+  const destinationSpacePort = destinationSpacePortReader();
+  const [departureSpacePortReader] = useAsyncResource(
+    getSpacePort,
+    flight.spacePortCodeFrom
+  );
+  const departureSpacePort = departureSpacePortReader();
+
   return (
     <>
       {booking.bookingStatus === 'NOT_PAID' && (
@@ -117,9 +130,13 @@ const TicketsList: React.FC = observer(() => {
             seatId={index}
             phoneNumber={booking.phoneNumber}
             departureDate={'0'}
-            spaceship={booking.spaceship || {}}
-            departurePort={booking.departurePort}
-            destination={booking.destinationPlanet}
+            spaceship={shuttle}
+            departurePort={`${capitalize(destinationSpacePort.planetName)} / ${
+              destinationSpacePort.spacePortName
+            }`}
+            destination={`${capitalize(departureSpacePort.planetName)} / ${
+              departureSpacePort.spacePortName
+            }`}
           />
         ))}
       </div>

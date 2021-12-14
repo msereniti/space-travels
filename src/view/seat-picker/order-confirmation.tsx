@@ -36,6 +36,7 @@ export const OrderConfirmer: React.FC = observer(() => {
         phoneNumber: store.phoneNumber,
         passengers: store.passengers,
         flights: [routeParams!.flightCode],
+        seats: store.owned.map((seatId) => store.shuttle!.seats[seatId]),
       });
 
       navigateTo(`/order/${bookingCode}`);
